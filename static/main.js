@@ -156,7 +156,7 @@ let updater = {
                 updater.updateCarrinhoAmmount(result.quantity)
             }
             else {
-                // updater.showMessage(event);
+                updater.showMessage(event);
             }
         }
     },
