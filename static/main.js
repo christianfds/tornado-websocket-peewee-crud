@@ -71,7 +71,7 @@ function setRipple() {
         // console.log(e)
     })
 }
-
+ 
 function getProdutos(callback) {
     $.ajax({
         type: "GET",
