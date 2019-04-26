@@ -145,7 +145,12 @@ function build_product_grid() {
 
 let updater = {
     start: () => {
-        let url = "ws://" + window.location.host + "/cart/updates"
+        let ulr;
+        if (window.location.href.substr(0, 5) == "https")
+            url = "wss://" + window.location.host + "/cart/updates"
+        else
+            url = "ws://" + window.location.host + "/cart/updates"
+    
         updater.socket = new WebSocket(url);
         updater.socket.onmessage = function (event) {
             result = JSON.parse(event.data)
