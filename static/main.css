@@ -1,0 +1,32 @@
+*{
+    font-family: Roboto,sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body{
+    margin: 0px;
+}
+
+.fix-header{
+    padding-top: 64px;
+}
+
+.price{
+    padding: 10px;
+    font-family: Roboto,sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+
+    /* background-color: rgba(1,1,1,0.2); */
+    border-top-left-radius: 5px;
+}
+
+.item_shop .mdc-card__media-content{
+    top: auto;
+    left: auto;
+}
+
+.buy-wrapper{
+    padding: 8px;
+}
