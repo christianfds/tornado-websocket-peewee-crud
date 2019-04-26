@@ -40,23 +40,25 @@ def create_tables():
 
 def add_produto_carrinho(userid, produtoid):
     with db.atomic():
-        exist = ProdutoRef.select().where(ProdutoRef.dono == userid &
-                                          ProdutoRef.produto == produtoid)
+        exist = ProdutoRef.update(quantidade=ProdutoRef.quantidade + 1).where(ProdutoRef.dono == str(userid) and
+                                                                              ProdutoRef.produto == produtoid)
 
-        quant = 1
-        if exist:
-            print('já existe')
-            # quant = exist.get().quantidade
-
-        prdRef = ProdutoRef(dono=userid, produto=produtoid,
-                            quantidade=quant, preco=3)
-
-        prdRef.save()
+        if exist.execute() > 0:
+            pass
+        else:
+            prdRef = ProdutoRef(dono=userid, produto=produtoid,
+                                quantidade=1)
+            prdRef.save()
 
 
 def count_produto_carrinho(userid):
     with db.atomic():
         return ProdutoRef.select().where(ProdutoRef.dono == userid).count()
+
+
+def get_produtos_carrinho(userid):
+    with db.atomic():
+        return ProdutoRef.select(ProdutoRef, Produto).join(Produto, JOIN.LEFT_OUTER).where(ProdutoRef.dono == str(userid))
 
 
 def init_table_produto():
@@ -79,10 +81,11 @@ def init_table_produto():
                    preco=6, img_path="./img_product/04.jpg")
     prod.save()
 
-    prod = Produto(nome="Teclado Logitech", quantidade=200,
-                   preco=180, img_path="./img_product/05.jpg")
+    prod = Produto(nome="Mouse Logitech", quantidade=200,
+                   preco=160, img_path="./img_product/05.jpg")
     prod.save()
 
-    prod = Produto(nome="Mouse Logitech", quantidade=200,
-                   preco=160, img_path="./img_product/06.jpg")
+    prod = Produto(nome="Teclado Logitech", quantidade=200,
+                   preco=180, img_path="./img_product/06.jpg")
     prod.save()
+

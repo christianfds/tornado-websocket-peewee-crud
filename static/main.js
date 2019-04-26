@@ -2,9 +2,11 @@ const MDCRipple = mdc.ripple.MDCRipple
 const MDCTopAppBar = mdc.topAppBar.MDCTopAppBar
 const MDCTextField = mdc.textField.MDCTextField
 const MDCSnackBar = mdc.snackbar.MDCSnackbar
+const MDCMenuSurface = mdc.menuSurface.MDCMenuSurface
 
 let products = [];
 let snack_bar;
+let my_menu;
 
 $(document).ready(function () {
     
@@ -19,7 +21,29 @@ $(document).ready(function () {
     })
     
     new MDCTopAppBar(document.querySelector('.mdc-top-app-bar'));
+    my_menu = new MDCMenuSurface(document.querySelector('.mdc-menu-surface'));
     snack_bar = new MDCSnackBar(document.querySelector('.mdc-snackbar'))
+
+    $('.menu-button').click(() => {
+        $.ajax({
+            type: "GET",
+            url: "/produto/cart",
+            dataType: "json",
+            success: function (response) {
+                $('#shoppingList').text('');
+                response.forEach((e,i)=>{
+                    console.log(e)
+                    $('#shoppingList').append($(' \
+                        <li class="mdc-list-item" role="menuitem" > \
+                            <span class="mdc-list-item__text"><b>'+e.nome+'</b> x '+e.quantidade+' - R$'+e.preco * e.quantidade+'</span> \
+                        </li> \
+                    '))
+                })
+                // shopping_list
+                my_menu.open = true;
+            }
+        });
+    })
 });
 
 function setTextField(){
@@ -88,12 +112,6 @@ function build_product(element){
         });
     });
 
-    // element.find('.buy-wrapper').slideUp(0);
-    // element.find('.card-buy').click(function (e) { 
-    //     $('.buy-wrapper').not(element.find('.buy-wrapper')).slideUp()
-    //     element.find('.buy-wrapper').slideToggle();
-    // });
-
     return jq_element;
 }
 
@@ -108,7 +126,6 @@ function build_product_grid(){
     });
 
     setRipple();
-    // setTextField();
 }
 
 let updater = {

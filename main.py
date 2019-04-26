@@ -72,25 +72,30 @@ def send_ws_message(client_id, message):
         clients[str(client_id)].write_message(message)
 
 
+class ShoppingCartListHandler(BaseHandler):
+    def get(self):
+        print(self.get_secure_cookie('uuid'))
+        v = [p for p in get_produtos_carrinho(self.get_secure_cookie('uuid')).dicts()]
+
+        self.write(json.dumps(v))
+
+
 class ShoppingCartAddHandler(BaseHandler):
     def post(self):
-        try:
-            client_id = str(self.get_secure_cookie("uuid"))
-            add_produto_carrinho(client_id, self.get_body_argument('produtoid'))
+        client_id = str(self.get_secure_cookie('uuid'))
+        add_produto_carrinho(
+            client_id, self.get_body_argument('produtoid'))
 
-            msg = {
-                'type': 'UPDATE',
-                'quantity': count_produto_carrinho(client_id)
-            }
+        msg = {
+            'type': 'UPDATE',
+            'quantity': count_produto_carrinho(client_id)
+        }
 
-            send_ws_message(client_id, msg)
-        
-            self.write(json.dumps({
-                'message': 'SUCCESS'
-            }))
+        send_ws_message(client_id, msg)
 
-        except Exception as e:
-            print(e)
+        self.write(json.dumps({
+            'message': 'SUCCESS'
+        }))
 
 
 class GetProdutosHandler(BaseHandler):
@@ -98,7 +103,7 @@ class GetProdutosHandler(BaseHandler):
         with db.atomic():
             v = [p for p in Produto.select().dicts()]
 
-        return self.write(json.dumps(v))
+        self.write(json.dumps(v))
 
 
 class MainHandler(BaseHandler):
@@ -118,6 +123,7 @@ if __name__ == "__main__":
             (r"/", MainHandler),
             (r"/cart/updates", WSUpdatesHandler),
             (r"/produto/add", ShoppingCartAddHandler),
+            (r"/produto/cart", ShoppingCartListHandler),
             (r"/produtos", GetProdutosHandler),
         ],
         cookie_secret="Batata",

@@ -23,7 +23,14 @@
                 <span class="mdc-top-app-bar__title">Crud</span>
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-                <a href="#" class="mdc-top-app-bar__navigation-icon"><span id="n_produtos"></span><span class="material-icons ">shopping_cart</span></a>
+                <!-- <a href="#" class="mdc-top-app-bar__navigation-icon"><span id="n_produtos"></span><span class="material-icons ">shopping_cart</span></a> -->
+                <div class="mdc-menu-surface--anchor">
+                    <button class="mdc-top-app-bar__navigation-icon menu-button"><span id="n_produtos"></span><span class="material-icons ">shopping_cart</span></button>
+                    <div class="mdc-menu-surface">
+                        <ul id="shoppingList" class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                        </ul>
+                    </div>
+                </div>
             </section>
         </div>
     </header>
