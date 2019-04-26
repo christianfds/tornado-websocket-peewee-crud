@@ -38,7 +38,7 @@ function setRipple(){
 function getProdutos(callback){
     $.ajax({
         type: "GET",
-        url: "http://localhost:8888/produtos",
+        url: "/produtos",
         // data: "data",
         dataType: "json",
         crossDomain: true,
@@ -75,7 +75,7 @@ function build_product(element){
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:8888/produto/add",
+            url: "/produto/add",
             crossDomain: true,
             data: {
                 "produtoid": element.id
@@ -113,7 +113,7 @@ function build_product_grid(){
 
 let updater = {
     start : () => {
-        let url = "ws://localhost:8888/cart/updates"
+        let url = "ws://" + window.location.host + "/cart/updates"
         updater.socket = new WebSocket(url);
         updater.socket.onmessage = function (event) {
             result = JSON.parse(event.data)
