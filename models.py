@@ -1,7 +1,13 @@
+import os
+
 from peewee import *
 from datetime import date
 
-db = MySQLDatabase('my_crud', user='root', host='localhost', port=3306)
+if 'ON_HEROKU' in os.environ:
+    db = MySQLDatabase('heroku_f78727b5063a4f1', user='bc6d48778c7305', passwd='827b35f0',
+                       host='us-cdbr-iron-east-02.cleardb.net')
+else:
+    db = MySQLDatabase('my_crud', user='root', host='localhost', port=3306)
 
 
 class BaseModel(Model):
