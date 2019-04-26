@@ -30,3 +30,21 @@ html, body{
 .buy-wrapper{
     padding: 8px;
 }
+
+.flex_start{
+    display: inline-flex;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+.flex_end{
+    display: inline-flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+#abc{
+    display: inline-flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}

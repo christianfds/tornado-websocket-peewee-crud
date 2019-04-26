@@ -81,11 +81,10 @@ def init_table_produto():
                    preco=6, img_path="./img_product/04.jpg")
     prod.save()
 
-    prod = Produto(nome="Mouse Logitech", quantidade=200,
-                   preco=160, img_path="./img_product/05.jpg")
-    prod.save()
-
     prod = Produto(nome="Teclado Logitech", quantidade=200,
-                   preco=180, img_path="./img_product/06.jpg")
+                   preco=180, img_path="./img_product/05.jpg")
     prod.save()
 
+    prod = Produto(nome="Mouse Logitech", quantidade=200,
+                   preco=160, img_path="./img_product/06.jpg")
+    prod.save()

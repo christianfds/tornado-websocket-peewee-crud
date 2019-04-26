@@ -68,13 +68,11 @@ def send_ws_message(client_id, message):
         for client in clients:
             client.write_message(message)
     elif client_id in clients:
-        print('sending')
         clients[str(client_id)].write_message(message)
 
 
 class ShoppingCartListHandler(BaseHandler):
     def get(self):
-        print(self.get_secure_cookie('uuid'))
         v = [p for p in get_produtos_carrinho(self.get_secure_cookie('uuid')).dicts()]
 
         self.write(json.dumps(v))
