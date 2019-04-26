@@ -4,7 +4,7 @@ import tornado.ioloop
 import tornado.locks
 import tornado.web
 import tornado.websocket
-import os.path
+import os
 import time
 import uuid
 import json
@@ -126,5 +126,5 @@ if __name__ == "__main__":
         xsrf_cookies=False,
         debug=options.debug,
     )
-    app.listen(options.port)
+    app.listen(int(os.environ.get("PORT", options.port)))
     tornado.ioloop.IOLoop.current().start()
