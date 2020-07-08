@@ -20,10 +20,20 @@ define("debug", default=True, help="run in debug mode")
 
 
 class BaseHandler(tornado.web.RequestHandler):
+    def prepare(self):
+        if db.is_closed():
+            db.connect()
+        return super(BaseHandler, self).prepare()
+    
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_header("Access-Control-Allow-Headers", "x-requested-with")
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        
+    def on_finish(self):
+        if not db.is_closed():
+            db.close()
+        return super(BaseHandler, self).on_finish()
 
 
 clients = {}
